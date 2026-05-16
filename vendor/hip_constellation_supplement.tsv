@@ -1,0 +1,5 @@
+# VizieR-style rows for HIPs missing from hip_bright_full.tsv (still in constellations.json).
+# ICRS J2000 from SIMBAD / Hipparcos-style fields. Plx empty => build script uses fallback distance for needHip.
+HIP	_RAJ2000	_DEJ2000	Vmag	Plx	B-V
+55203	169.5455495	31.5292889	3.79		0.58
+28716	90.9799351	20.1384523	4.63	0.76	-0.20

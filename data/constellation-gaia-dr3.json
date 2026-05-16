@@ -1,0 +1,4 @@
+{
+  "_readme": "Optional overrides for constellation line directions (ICRS, degrees). Fill hips from Gaia DR3 (see docs/gaia-coordinates.md). Empty hips = use catalog RA/Dec.",
+  "hips": {}
+}

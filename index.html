@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interstellar — Solar System</title>
+  <title>Prometheus — Solar System</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
@@ -18,6 +18,7 @@
       pointer-events: none;
     }
     #ui span { display: block; margin-top: 0.25rem; }
+    #distance-reference { pointer-events: auto; cursor: pointer; margin-left: 0.25rem; }
     #free-view-btn {
       position: fixed;
       top: 1rem;
@@ -57,15 +58,103 @@
       cursor: pointer;
     }
     #travel-to a:hover { background: rgba(60,60,80,0.7); }
+    #habitable-zone-btn.active { background: rgba(0,120,60,0.5); border-color: rgba(0,180,80,0.5); }
+    #pause-btn { margin-right: 0.25rem; }
+    #habitable-zone-btn { margin-right: 0.5rem; }
+    .speed-btn, #pause-btn, #habitable-zone-btn {
+      padding: 0.35rem 0.6rem;
+      margin-right: 0.25rem;
+      margin-top: 0.2rem;
+      font-family: system-ui, sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .speed-btn:hover, #pause-btn:hover, #habitable-zone-btn:hover { background: rgba(50,50,60,0.7); }
+    .speed-btn.active { background: rgba(60,60,100,0.6); border-color: rgba(120,120,200,0.5); }
+    #speed-controls {
+      position: fixed;
+      bottom: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.25rem;
+      z-index: 15;
+      pointer-events: auto;
+    }
+    #sim-clock {
+      position: fixed;
+      top: 1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: system-ui, sans-serif;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      pointer-events: none;
+      z-index: 15;
+      line-height: 1.4;
+      text-align: center;
+    }
+    #sim-clock .clock-digits {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    #sim-clock .clock-digit { font-weight: 600; font-size: 1rem; }
+    #sim-clock .clock-digit span { display: block; font-size: 0.6rem; font-weight: 400; opacity: 0.85; text-transform: uppercase; }
+    #sim-clock .clock-date { margin-top: 0.35rem; font-size: 0.85rem; opacity: 0.95; }
   </style>
 </head>
 <body>
   <canvas id="canvas"></canvas>
   <div id="travel-to"><p>Travel to:</p></div>
   <button type="button" id="free-view-btn">← Free view</button>
+  <div id="planet-info" style="display: none; position: fixed; bottom: 1rem; right: 1rem; font-family: system-ui; font-size: 0.8rem; color: rgba(255,255,255,0.95); background: rgba(0,0,0,0.6); padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2); z-index: 18; line-height: 1.4;"></div>
+  <div id="sim-clock">
+    <div class="clock-digits">
+      <div class="clock-digit"><span id="clock-sec">0</span><span>sec</span></div>
+      <div class="clock-digit"><span id="clock-min">0</span><span>min</span></div>
+      <div class="clock-digit"><span id="clock-hr">0</span><span>hr</span></div>
+      <div class="clock-digit"><span id="clock-day">1</span><span>day</span></div>
+      <div class="clock-digit"><span id="clock-year">2026</span><span>year</span></div>
+    </div>
+    <div class="clock-date" id="sim-clock-date">1, 1 January, 2026 A.D.</div>
+  </div>
   <div id="ui">
     <span>Drag to orbit · Scroll to zoom</span>
     <span id="zoom-label">Zoom: Solar system</span>
+    <span>Distance from </span>
+    <select id="distance-reference" title="Reference object for distance">
+      <option value="Earth">Earth</option>
+    </select>
+    <span id="distance-value">— mi</span>
+  </div>
+  <div id="speed-controls">
+    <button type="button" class="speed-btn active" data-orbit-seconds="real" title="1 orbit per real year">Play</button>
+    <button type="button" class="speed-btn" data-orbit-seconds="3600" title="1 orbit per hour">2×</button>
+    <button type="button" class="speed-btn" data-orbit-seconds="60" title="1 orbit per min">3×</button>
+    <button type="button" class="speed-btn" data-orbit-seconds="1" title="1 orbit per sec">5×</button>
+    <button type="button" class="speed-btn" data-orbit-seconds="0.1" title="1 orbit per 0.1 sec">10×</button>
+    <button type="button" class="speed-btn" data-orbit-seconds="0.01" title="1 orbit per 0.01 sec">100×</button>
+    <button type="button" id="pause-btn" title="Pause simulation">⏸</button>
+    <button type="button" id="habitable-zone-btn" title="Show habitable zone ring">Habitable zone</button>
+  </div>
+  <div id="sky-label-controls" style="position: fixed; bottom: 1rem; right: 1rem; z-index: 25; pointer-events: auto;">
+    <label style="font-family: system-ui, sans-serif; font-size: 0.85rem; color: rgba(255,255,255,0.85); display: flex; align-items: center; gap: 0.35rem;">
+      <input type="checkbox" id="show-names-toggle" checked title="Planet, moon, and named star labels" />
+      Names
+    </label>
   </div>
   <script type="importmap">
     {
@@ -75,6 +164,6 @@
       }
     }
   </script>
-  <script type="module" src="js/space.js"></script>
+  <script type="module" src="js/space.js?v=44"></script>
 </body>
 </html>

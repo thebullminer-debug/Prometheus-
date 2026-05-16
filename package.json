@@ -1,0 +1,28 @@
+{
+  "name": "game",
+  "version": "1.0.0",
+  "description": "A 3D solar system with the sun, all eight planets (to scale), realistic textures, bloom, and smooth travel between planets.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-stars": "node scripts/build-catalog-from-vizier-tsv.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thebulliminer-debug/Game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/thebulliminer-debug/Game/issues"
+  },
+  "homepage": "https://github.com/thebulliminer-debug/Game#readme",
+  "devDependencies": {
+    "csv-parse": "^5.5.3"
+  }
+}
