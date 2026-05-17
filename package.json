@@ -1,7 +1,7 @@
 {
   "name": "game",
   "version": "1.0.0",
-  "description": "A 3D solar system with the sun, all eight planets (to scale), realistic textures, bloom, and smooth travel between planets.",
+  "description": "Travel the stars and galaxies and explore the cosmos through time.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
