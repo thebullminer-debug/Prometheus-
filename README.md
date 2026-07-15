@@ -1,4 +1,4 @@
-﻿# Interstellar
+﻿# Prometheus
 
 Travel the stars and galaxies and explore the cosmos through time.
 
