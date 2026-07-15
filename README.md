@@ -4,7 +4,7 @@ Prometheus is an interactive browser-based space simulation that lets users expl
 
 ## Live Demo
 
-[View Prometheus](https://thebullminer-debug.github.io/Prometheus-/)
+[View Prometheus](https://nikolairangl.github.io/Prometheus-/)
 
 ## Features
 

@@ -58,7 +58,7 @@ When you close ngrok and the server, the link stops working.
 
 Host the project so your friend can open it anytime from any machine:
 
-- **GitHub Pages** — push the repo to GitHub, enable Pages, share the `https://thebullminer-debug.github.io/Prometheus-/` link.
+- **GitHub Pages** — push the repo to GitHub, enable Pages, share the `https://nikolairangl.github.io/Prometheus-/` link.
 - **Netlify** — drag the `Game` folder onto https://app.netlify.com/drop and get a link like `https://something.netlify.app`.
 - **Vercel** — similar: connect the folder or repo and get a permanent URL.
 

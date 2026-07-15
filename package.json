@@ -12,16 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thebullminer-debug/Prometheus-.git"
+    "url": "git+https://github.com/nikolairangl/Prometheus-.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/thebullminer-debug/Prometheus-/issues"
+    "url": "https://github.com/nikolairangl/Prometheus-/issues"
   },
-  "homepage": "https://thebullminer-debug.github.io/Prometheus-/",
+  "homepage": "https://nikolairangl.github.io/Prometheus-/",
   "devDependencies": {
     "csv-parse": "^5.5.3"
   }
