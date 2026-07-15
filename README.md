@@ -17,6 +17,7 @@ Prometheus is an interactive browser-based space simulation that lets users expl
 - Realistic planet texture support
 - Star catalog and constellation data
 - Runs directly in the browser with no backend required
+
 ## Tech Stack
 
 - JavaScript
@@ -31,3 +32,8 @@ The project uses ES modules, so open it through a local server instead of double
 
 ```bash
 npx serve .
+```
+
+Then open the local URL shown in the terminal.
+
+You can also use Cursor or VS Code with the Live Server extension: right-click `index.html`, then choose **Open with Live Server**.

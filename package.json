@@ -1,7 +1,7 @@
 {
-  "name": "game",
+  "name": "prometheus",
   "version": "1.0.0",
-  "description": "Travel the stars and galaxies and explore the cosmos through time.",
+  "description": "Interactive browser-based space simulation for exploring planets, stars, constellations, and deep-space data.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -12,16 +12,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thebulliminer-debug/Game.git"
+    "url": "git+https://github.com/thebullminer-debug/Prometheus-.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/thebulliminer-debug/Game/issues"
+    "url": "https://github.com/thebullminer-debug/Prometheus-/issues"
   },
-  "homepage": "https://github.com/thebulliminer-debug/Game#readme",
+  "homepage": "https://thebullminer-debug.github.io/Prometheus-/",
   "devDependencies": {
     "csv-parse": "^5.5.3"
   }
